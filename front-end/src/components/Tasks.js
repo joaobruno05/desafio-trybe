@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/tasks.css';
 // import ButtonAddTask from './ButtonAddTask';
 
 function Tasks() {
@@ -18,6 +19,7 @@ function Tasks() {
   return (
     <div>
       <input
+        className="input-task"
         type="text"
         placeholder="Write your task"
         name="task"
