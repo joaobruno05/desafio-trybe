@@ -11,11 +11,16 @@ function ButtonAddTask({ task }) {
       <button
         type="button"
         disabled={disabled}
+        onClick={() => console.log('clicou')}
       >
         Add Task
       </button>
     </div>
   );
 }
+
+ButtonAddTask.propTypes = {
+  task: PropTypes.string.isRequired,
+};
 
 export default ButtonAddTask;

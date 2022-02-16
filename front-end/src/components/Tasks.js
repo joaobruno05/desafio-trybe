@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
-import ButtonAddTask from './ButtonAddTask';
+// import ButtonAddTask from './ButtonAddTask';
 
 function Tasks() {
   const [task, setTask] = useState('');
+  const [disable, setDisable] = useState(true);
+
+  const handleInputChange = ({ target }) => {
+    setTask(target.value);
+
+    if (target.value) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  };
 
   return (
     <div>
@@ -12,9 +23,15 @@ function Tasks() {
         name="task"
         value={task}
         id="task"
-        onChange={({ target }) => setTask(target.value)}
+        onChange={handleInputChange}
       />
-      <ButtonAddTask task={task} />
+      {/* <ButtonAddTask task={task} /> */}
+      <button
+        type="button"
+        disabled={disable}
+      >
+        Add Task
+      </button>
     </div>
   );
 }
