@@ -1,5 +1,13 @@
 const connectionMongo = require('./connectionMongo');
 
+const getAllTasks = async () => {
+  const connect = await connectionMongo();
+
+  const tasks = await connect.collection('tasks').find().toArray();
+
+  return tasks;
+};
+
 const addTask = async (taskName) => {
   const connect = await connectionMongo();
 
@@ -9,5 +17,6 @@ const addTask = async (taskName) => {
 };
 
 module.exports = {
+  getAllTasks,
   addTask,
 };
