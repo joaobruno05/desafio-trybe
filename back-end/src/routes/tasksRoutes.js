@@ -1,8 +1,9 @@
 const express = require('express');
+const taskController = require('../controllers/taskController');
 
 const router = express.Router();
 
 // rotas
-router.get('/', (req, res) => res.json('hello world'));
+router.post('/tasks', taskController.addTask);
 
 module.exports = router;
