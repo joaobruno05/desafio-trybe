@@ -19,7 +19,7 @@ const addTask = async (req, res, next) => {
 
     return res.status(201).json({ _id: taskId, message: 'task added successfully' });
   } catch (error) {
-    console.log(`Error addTask: ${error.message}`);
+    console.log(`Error addTask: ${error.error}`);
     return next(error);
   }
 };
@@ -46,7 +46,7 @@ const deleteTask = async (req, res, next) => {
 
     return res.status(200).json(task);
   } catch (error) {
-    console.log(`Error deleteTask: ${error.message}`);
+    console.log(`Error deleteTask: ${error.error}`);
     return next(error);
   }
 };
