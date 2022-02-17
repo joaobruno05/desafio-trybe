@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import taskAPIs from '../service/taskAPIs';
+
 import '../styles/tasks.css';
-// import ButtonAddTask from './ButtonAddTask';
 
 function Tasks() {
-  const [task, setTask] = useState('');
+  const [inputTask, setInputTask] = useState('');
+  const [tasks, setTasks] = useState([]);
   const [disable, setDisable] = useState(true);
 
+  console.log(tasks);
+
   const handleInputChange = ({ target }) => {
-    setTask(target.value);
+    setInputTask(target.value);
 
     if (target.value) {
       setDisable(false);
@@ -16,6 +20,19 @@ function Tasks() {
     }
   };
 
+  const getAllTasks = async () => {
+    const response = await taskAPIs.getAllTasks();
+    setTasks(response);
+  };
+
+  useEffect(() => {
+    getAllTasks();
+  }, []);
+
+  // const addTask = () => {
+
+  // }
+
   return (
     <div>
       <input
@@ -23,17 +40,28 @@ function Tasks() {
         type="text"
         placeholder="Write your task"
         name="task"
-        value={task}
+        value={inputTask}
         id="task"
         onChange={handleInputChange}
       />
-      {/* <ButtonAddTask task={task} /> */}
       <button
         type="button"
         disabled={disable}
+        // onClick={taskAPIs.addTask(inputTask)}
       >
         Add Task
       </button>
+      <div>
+        { tasks
+          ? (
+            <ol>
+              { tasks.map(({ _id, taskName }) => (
+                <li key={_id}>{ Object.values(taskName) }</li>
+              )) }
+            </ol>
+          )
+          : <h3>No task found</h3> }
+      </div>
     </div>
   );
 }
