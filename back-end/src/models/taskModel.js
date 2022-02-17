@@ -19,16 +19,25 @@ const addTask = async (taskName) => {
 const updateTask = async (id, taskName) => {
   const connect = await connectionMongo();
 
-  const task = await connect.collection('tasks').updateOne(
+  const task = await connect.collection('tasks').findOneAndUpdate(
     { _id: id },
     { $set: { taskName } },
   );
 
-  return task;
+  return task.value;
+};
+
+const deleteTask = async (id) => {
+  const connect = await connectionMongo();
+
+  const task = await connect.collection('tasks').findOneAndDelete({ _id: id });
+
+  return task.value;
 };
 
 module.exports = {
   getAllTasks,
   addTask,
   updateTask,
+  deleteTask,
 };

@@ -29,11 +29,24 @@ const updateTask = async (req, res, next) => {
     const { id } = req.params;
     const { taskName } = req.body;
 
-    await taskService.updateTask(id, taskName);
+    const task = await taskService.updateTask(id, taskName);
 
-    return res.status(200).json({ _id: id, message: 'task updated successfully' });
+    return res.status(200).json(task);
   } catch (error) {
     console.log(`Error updateTask: ${error.message}`);
+    return next(error);
+  }
+};
+
+const deleteTask = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const task = await taskService.deleteTask(id);
+
+    return res.status(200).json(task);
+  } catch (error) {
+    console.log(`Error deleteTask: ${error.message}`);
     return next(error);
   }
 };
@@ -42,4 +55,5 @@ module.exports = {
   getAllTasks,
   addTask,
   updateTask,
+  deleteTask,
 };
