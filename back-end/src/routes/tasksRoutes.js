@@ -6,6 +6,8 @@ const router = express.Router();
 // rotas
 router.get('/', taskController.getAllTasks);
 
-router.post('/tasks', taskController.addTask);
+router.post('/task', taskController.addTask);
+
+router.put('/:id', taskController.updateTask);
 
 module.exports = router;

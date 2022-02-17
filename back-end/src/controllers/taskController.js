@@ -4,7 +4,7 @@ const getAllTasks = async (_req, res, next) => {
   try {
     const tasks = await taskService.getAllTasks();
 
-    res.status(201).json(tasks);
+    return res.status(200).json(tasks);
   } catch (error) {
     console.log(`Error getAllTasks: ${error.message}`);
     return next(error);
@@ -17,9 +17,23 @@ const addTask = async (req, res, next) => {
 
     const taskId = await taskService.addTask(taskName);
 
-    res.status(201).json({ _id: taskId, message: 'task added successfully' });
+    return res.status(201).json({ _id: taskId, message: 'task added successfully' });
   } catch (error) {
     console.log(`Error addTask: ${error.message}`);
+    return next(error);
+  }
+};
+
+const updateTask = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { taskName } = req.body;
+
+    await taskService.updateTask(id, taskName);
+
+    return res.status(200).json({ _id: id, message: 'task updated successfully' });
+  } catch (error) {
+    console.log(`Error updateTask: ${error.message}`);
     return next(error);
   }
 };
@@ -27,4 +41,5 @@ const addTask = async (req, res, next) => {
 module.exports = {
   getAllTasks,
   addTask,
+  updateTask,
 };
